@@ -1,5 +1,23 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets%}
+<style>
+    ...
+</style>
+{% endblock stylesheets%}
+
+{% block title %} book info {% endblock %}
+
+{% block content %}
 <h3>Book details</h3>
 <h4>Title</h4>
 <p>{{book.title}}</p>
 <h4>Authors</h4>
 <p>{{book.author}}</p>
+{% endblock content %}
+
+{% block javascripts%}
+<script>
+    ...
+</script>
+{% endblock javascripts%}
