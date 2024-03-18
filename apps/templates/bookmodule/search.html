@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}
+
+<style>
+    table, th, td {
+        border: 1px solid green;
+        border-collapse: collapse;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <label>Keywords:</label>
+    <input type="text" name="keyword" placeholder="enter a keyword"/>
+    <br/> 
+
+    <label>Search in:</label>
+    <input type="checkbox" name="option1"/><label>Title</label>
+    <input type="checkbox" name="option2"/><label>Author</label>
+    <br/>
+
+    <select name="selectedgenre" size="4">
+        <option selected>None</option>
+        <option value="fiction">Fiction</option>
+        <option value="n-fiction">Non-fiction</option>
+        <option value="novel">Novel</option>
+    </select>
+
+    <br/>
+
+    <textarea name="description" rows="10" cols="30"></textarea>
+    
+    <br/>
+    <button type="submit" >Search</button>
+</form>
+
+{% endblock content %}

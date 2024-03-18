@@ -3,6 +3,7 @@ from apps.bookmodule import views
 
 urlpatterns = [    
     path('', views.index, name='index'),
-    path('books', views.books),
-    path('book/<int:bId>', views.book)
+    path('books', views.books, name = "books"),
+    path('book/<int:bId>', views.book),
+    path('filterbooks', views.filterbooks, name="filterbooks")
 ]
