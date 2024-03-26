@@ -1,10 +1,13 @@
 from django.db import models
 
 class Book(models.Model):
-    title = models.CharField()
-    author = models.CharField()
-    edition = models.SmallIntegerField()
+    title = models.CharField(max_length = 50)
+    author = models.CharField(max_length = 50)
+    price = models.FloatField(default = 0.0)
+    edition = models.SmallIntegerField(default = 1)
     
-class Publish(models.Model):
-    address = models.CharField()
+
+
+
+    
     
