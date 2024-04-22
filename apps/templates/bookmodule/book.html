@@ -1,11 +1,6 @@
 {% extends "layouts/base.html" %}
-
 {% block stylesheets%}
-<style>
-    ...
-</style>
 {% endblock stylesheets%}
-
 {% block title %} book info {% endblock %}
 
 {% block content %}
@@ -14,13 +9,4 @@
 <p>{{book.title}}</p>
 <h4>Authors</h4>
 <p>{{book.author}}</p>
-
-<img src="{%static '/images/Saudi_Arabia.jpg'%}" width = "22" height = "33" />
-
 {% endblock content %}
-
-{% block javascripts%}
-<script>
-    ...
-</script>
-{% endblock javascripts%}

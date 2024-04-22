@@ -6,9 +6,38 @@ def index(request):
 	return render(request, 'bookmodule/index.html')
 
 def books(request):
-    books = Book.objects.filter(price__lte = 100).order_by('-price')
-    print(str(len(books)))
+    books = Book.objects.all()
     return render(request, 'bookmodule/bookList.html', {'books': books})
+
+def book(request, bId): # read/sgiw/disply
+    obj = Book.objects.get(id = bId)
+    return render(request, 'bookmodule/book.html', {'book':obj})
+
+def addBook(request):
+    if request.method == 'POST':
+        titleval = request.POST.get('title')
+        authorval = request.POST.get('author')
+        priceval = request.POST.get('price')
+        editionval = request.POST.get('edition')
+        obj = Book(title= titleval, author = authorval, price = priceval, edition = editionval)
+        obj.save()
+        return redirect('book', bId = obj.id )
+    return render(request, "bookmodule/addBook.html", {})
+
+def updateBook(request, bId):
+    obj = Book.objects.get(id = bId)
+    if request.method == 'POST':
+        titleval = request.POST.get('title')
+        authorval = request.POST.get('author')
+        priceval = request.POST.get('price')
+        editionval = request.POST.get('edition')
+        obj.title = titleval
+        obj.author=authorval
+        obj.price = priceval
+        obj.edition = editionval
+        obj.save()
+        return redirect('book', bId = obj.id )
+    return render(request, "bookmodule/updateBook.html", {'obj':obj})
 
 def filterbooks(request):
     
@@ -34,17 +63,4 @@ def filterbooks(request):
         return render(request, 'bookmodule/bookList.html', {'books':newBooks})
     return render(request, 'bookmodule/search.html', {})
 
-def book(request, bId):
-    
-    book1 = {'id':12344321, 'title':'Continuous Delivery', 'author':'J. Humble and D. Farley'}
-    book2 = {'id':56788765, 'title':'Reversing: Secrets of Reverse Engineering', 'author':'E. Eilam'}
-    
-    targetBook = None
-    if book1['id'] == bId: targetBook = book1
-    if book2['id'] == bId: targetBook = book2
-    
-    if targetBook == None: return redirect('/books')
-    
-    context = {'book':targetBook} # book is the variable name accessible by template
-    return render(request, 'bookmodule/book.html', context)
     

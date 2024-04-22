@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets%}
+{% endblock stylesheets%}
+{% block title %} book info {% endblock %}
+
+{% block content %}
+<h3>Updating book</h3>
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="{{obj.title}}" />
+    <br>
+    <label for="author">Author</label>
+    <input type="text" id="author" name = 'author' value="{{obj.author}}" />
+    <br>
+    <label for="price">Price</label>
+    <input type="number" id="price" name ='price' value="{{obj.price}}" />
+    <br>
+    <label for="edition">Edition</label>
+    <input type="number" id="edition"  name='edition' value="{{obj.edition}}"/>
+    <br>
+    <button type="submit">Update</button>
+</form>
+{% endblock content %}
