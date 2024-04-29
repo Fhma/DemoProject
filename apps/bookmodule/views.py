@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Book
+from .forms import BookForm
 
 def index(request):
     # this view return index
@@ -15,29 +16,24 @@ def book(request, bId): # read/sgiw/disply
 
 def addBook(request):
     if request.method == 'POST':
-        titleval = request.POST.get('title')
-        authorval = request.POST.get('author')
-        priceval = request.POST.get('price')
-        editionval = request.POST.get('edition')
-        obj = Book(title= titleval, author = authorval, price = priceval, edition = editionval)
-        obj.save()
-        return redirect('book', bId = obj.id )
-    return render(request, "bookmodule/addBook.html", {})
+        form = BookForm(request.POST)
+        
+        if form.is_valid():
+            obj = form.save()
+            return redirect('book', bId = obj.id )
+    form = BookForm(None)
+    return render(request, "bookmodule/addBook.html", {'form':form})
 
 def updateBook(request, bId):
     obj = Book.objects.get(id = bId)
     if request.method == 'POST':
-        titleval = request.POST.get('title')
-        authorval = request.POST.get('author')
-        priceval = request.POST.get('price')
-        editionval = request.POST.get('edition')
-        obj.title = titleval
-        obj.author=authorval
-        obj.price = priceval
-        obj.edition = editionval
-        obj.save()
-        return redirect('book', bId = obj.id )
-    return render(request, "bookmodule/updateBook.html", {'obj':obj})
+        form = BookForm(request.POST, instance=obj)
+        if form.is_valid():
+            obj.save()
+            return redirect('book', bId = obj.id )
+        
+    form = BookForm(instance=obj)
+    return render(request, "bookmodule/updateBook.html", {'form':form})
 
 def filterbooks(request):
     

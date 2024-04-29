@@ -10,7 +10,7 @@
     </tr>
     {% for b in books %}
         <tr>
-            <td>{{b.title}}</td>
+            <td><a href="{% url 'book' bId=b.id %}">{{b.title}}</a></td>
             <td>{{b.author}}</td>
             <td>{{b.price}}</td>
         </tr>

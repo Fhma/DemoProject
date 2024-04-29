@@ -9,4 +9,52 @@
 <p>{{book.title}}</p>
 <h4>Authors</h4>
 <p>{{book.author}}</p>
+<h4>Price</h4>
+<p>{{book.price}}</p>
+
+
+<table>
+    <tr>
+       <form method="post">
+          {% csrf_token %}
+          <td>
+             <label style="color:firebrick;" for="input_check">
+             <input style="vertical-align: -2px;" type="checkbox" id="input_check" name="delete_checked" />
+             <b>Delete book</b>
+             </label>
+          </td>
+          <td>
+             <input type="text" id="input_text" name="delete_keyword" placeholder="write DELETE" />
+          </td>
+          <td>
+             <button type="submit" id="delete_button" name="delete">Delete</button>
+          </td>
+       </form>
+    </tr>
+ </table>
+
 {% endblock content %}
+
+
+{% block javascripts %}
+<script>
+    const check = document.querySelector('#input_check');
+    const keyword = document.querySelector('#input_text');
+    const button = document.querySelector('#delete_button');
+
+    button.style.visibility = 'hidden';
+    keyword.style.visibility = 'hidden';
+   
+    check.addEventListener('change', () => {
+     if (check.checked) {
+         keyword.style.visibility = 'visible';
+         button.style.visibility = 'visible';
+     } else {
+       keyword.style.visibility = 'hidden';
+       button.style.visibility = 'hidden';
+     }
+    });
+  </script>
+
+
+{% endblock javascripts %}
